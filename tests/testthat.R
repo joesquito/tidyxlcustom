@@ -1,4 +1,4 @@
 library(testthat)
-library(tidyxl)
+library(tidyxlcustom)
 
-test_check("tidyxl")
+test_check("tidyxlcustom")

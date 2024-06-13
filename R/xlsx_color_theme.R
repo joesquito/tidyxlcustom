@@ -20,7 +20,7 @@
 #'
 #' @export
 #' @examples
-#' examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+#' examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 #' xlsx_color_theme(examples)
 #' xlsx_colour_theme(examples)
 xlsx_color_theme <- function(path, check_filetype = TRUE) {

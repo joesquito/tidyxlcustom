@@ -2,34 +2,34 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 xlsx_cells_ <- function(path, sheet_paths, sheet_names, comments_paths, include_blank_cells) {
-    .Call('_tidyxl_xlsx_cells_', PACKAGE = 'tidyxl', path, sheet_paths, sheet_names, comments_paths, include_blank_cells)
+    .Call('_tidyxlcustom_xlsx_cells_', PACKAGE = 'tidyxlcustom', path, sheet_paths, sheet_names, comments_paths, include_blank_cells)
 }
 
 xlsx_formats_ <- function(path) {
-    .Call('_tidyxl_xlsx_formats_', PACKAGE = 'tidyxl', path)
+    .Call('_tidyxlcustom_xlsx_formats_', PACKAGE = 'tidyxlcustom', path)
 }
 
 xlsx_sheet_files_ <- function(path) {
-    .Call('_tidyxl_xlsx_sheet_files_', PACKAGE = 'tidyxl', path)
+    .Call('_tidyxlcustom_xlsx_sheet_files_', PACKAGE = 'tidyxlcustom', path)
 }
 
 xlsx_validation_ <- function(path, sheet_paths, sheet_names) {
-    .Call('_tidyxl_xlsx_validation_', PACKAGE = 'tidyxl', path, sheet_paths, sheet_names)
+    .Call('_tidyxlcustom_xlsx_validation_', PACKAGE = 'tidyxlcustom', path, sheet_paths, sheet_names)
 }
 
 xlsx_names_ <- function(path) {
-    .Call('_tidyxl_xlsx_names_', PACKAGE = 'tidyxl', path)
+    .Call('_tidyxlcustom_xlsx_names_', PACKAGE = 'tidyxlcustom', path)
 }
 
 is_date_format_ <- function(formats) {
-    .Call('_tidyxl_is_date_format_', PACKAGE = 'tidyxl', formats)
+    .Call('_tidyxlcustom_is_date_format_', PACKAGE = 'tidyxlcustom', formats)
 }
 
 xlsx_color_theme_ <- function(path) {
-    .Call('_tidyxl_xlsx_color_theme_', PACKAGE = 'tidyxl', path)
+    .Call('_tidyxlcustom_xlsx_color_theme_', PACKAGE = 'tidyxlcustom', path)
 }
 
 xlex_ <- function(x) {
-    .Call('_tidyxl_xlex_', PACKAGE = 'tidyxl', x)
+    .Call('_tidyxlcustom_xlex_', PACKAGE = 'tidyxlcustom', x)
 }
 

@@ -26,7 +26,7 @@ the beginning of the formula is implied, because Excel doesn't write it to the
 file).
 
 ```{r}
-library(tidyxl)
+library(tidyxlcustom)
 x <- xlex("MIN(3,MAX(2,A1))")
 x
 ```
@@ -64,7 +64,7 @@ library(ggplot2)
 
 # The original filename was "barry_tycholiz__848__2002 Plan Worksheet CC107322.xlsx"
 sheet <- tidy_xlsx(system.file("extdata/enron-constants.xlsx",
-                               package = "tidyxl"),
+                               package = "tidyxlcustom"),
                    "Detail Breakdown")$data[[1]]
 sheet$formula[22]
 xlex(sheet$formula[22])
@@ -178,7 +178,7 @@ of nesting turns out to be 7, and is seen in all the cells in row 171.
 ```{r}
 # The original filename was "albert_meyers__1__1-25act.xlsx"
 sheet <- tidy_xlsx(system.file("extdata/enron-nested.xlsx",
-                               package = "tidyxl"),
+                               package = "tidyxlcustom"),
                    "Preschedule")$data[[1]]
 
 deepest <-

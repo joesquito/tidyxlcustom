@@ -4,7 +4,7 @@
 #' `xlsx_cells()` imports data from spreadsheets without coercing it into a
 #' rectangle.  Each cell is represented by a row in a data frame, giving the
 #' cell's address, contents, formula, height, width, and keys to look up the
-#' cell's formatting in the return value of [tidyxl::xlsx_formats()].
+#' cell's formatting in the return value of [tidyxlcustom::xlsx_formats()].
 #'
 #' @param path Path to the xlsx file.
 #' @param sheets Sheets to read. Either a character vector (the names of the
@@ -50,11 +50,11 @@
 #' * `local_format_id` An index into a table of local cell formats
 #'     `x$formats$local` (see 'Details').
 #'
-#' Cell formatting is returned in [tidyxl::xlsx_formats()].  There are two types
+#' Cell formatting is returned in [tidyxlcustom::xlsx_formats()].  There are two types
 #' or scopes of formatting: 'style' formatting, such as Excel's built-in styles
 #' 'normal', 'bad', etc., and 'local' formatting, which overrides particular
 #' elements of the style, e.g. by making it bold.  Both types are returned, in
-#' the `$style` and `$local` sublists of [tidyxl::xlsx_formats()], with
+#' the `$style` and `$local` sublists of [tidyxlcustom::xlsx_formats()], with
 #' identical structures.  To look up the local formatting of a given cell, take
 #' the cell's 'local_format_id' value (`my_cells$data$Sheet1[1,
 #' "local_format_id"]`), and use it as an index into the format structure.  E.g.
@@ -98,11 +98,11 @@
 #' }
 #'
 #' \subsection{Formatting}{
-#'   Cell formatting is returned by [tidyxl::xlsx_formats()].  There are two
+#'   Cell formatting is returned by [tidyxlcustom::xlsx_formats()].  There are two
 #'   types of formatting: 'style' formatting, such as Excel's built-in styles
 #'   'normal', 'bad', etc., and 'local' formatting, which overrides the style.
 #'   These are returned in the `$style` and `$local` sublists of
-#'   [tidyxl::xlsx_formats()], with identical structures.
+#'   [tidyxlcustom::xlsx_formats()], with identical structures.
 #'
 #'   To look up the local formatting of a given cell, take the cell's
 #'   `local_format_id` value (`my_cells$Sheet1[1, "local_format_id"]`), and use
@@ -120,7 +120,7 @@
 #'
 #' @export
 #' @examples
-#' examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+#' examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 #'
 #' # All sheets
 #' str(xlsx_cells(examples))

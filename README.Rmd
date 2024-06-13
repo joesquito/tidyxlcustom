@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# tidyxl
+# tidyxlcustom
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/nacnudus/tidyxl/workflows/R-CMD-check/badge.svg)](https://github.com/nacnudus/tidyxl/actions)
@@ -84,7 +84,7 @@ for importing spreadsheets coerces the pivot table into a dataframe. It treats
 the second header row as though it were observations.
 
 ```{r, echo = TRUE}
-titanic <- system.file("extdata/titanic.xlsx", package = "tidyxl")
+titanic <- system.file("extdata/titanic.xlsx", package = "tidyxlcustom")
 readxl::read_excel(titanic)
 ```
 
@@ -93,7 +93,7 @@ a data frame.  Instead, it represents each cell in its own row, where it
 describes the cell's address, value and other properties.
 
 ```{r, echo = TRUE}
-library(tidyxl)
+library(tidyxlcustom)
 x <- xlsx_cells(titanic)
 dplyr::glimpse(x)
 ```
@@ -150,7 +150,7 @@ head(x[x$style_format == "Normal", c("address", "character")])
 
 # In-cell formatting is available in the `character_formatted` column as a data
 # frame, one row per substring.
-examples <- system.file("/extdata/examples.xlsx", package = "tidyxl")
+examples <- system.file("/extdata/examples.xlsx", package = "tidyxlcustom")
 xlsx_cells(examples)$character_formatted[77]
 ```
 

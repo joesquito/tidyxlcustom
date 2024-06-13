@@ -20,12 +20,12 @@
 #'
 #' @export
 #' @examples
-#' examples_xlsx <- system.file("extdata/examples.xlsx", package = "tidyxl")
-#' examples_xlsm <- system.file("extdata/examples.xlsm", package = "tidyxl")
-#' examples_xltx <- system.file("extdata/examples.xltx", package = "tidyxl")
-#' examples_xltm <- system.file("extdata/examples.xltm", package = "tidyxl")
-#' examples_xlsb <- system.file("extdata/examples.xlsb", package = "tidyxl")
-#' examples_xls <- system.file("extdata/examples.xls", package = "tidyxl")
+#' examples_xlsx <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
+#' examples_xlsm <- system.file("extdata/examples.xlsm", package = "tidyxlcustom")
+#' examples_xltx <- system.file("extdata/examples.xltx", package = "tidyxlcustom")
+#' examples_xltm <- system.file("extdata/examples.xltm", package = "tidyxlcustom")
+#' examples_xlsb <- system.file("extdata/examples.xlsb", package = "tidyxlcustom")
+#' examples_xls <- system.file("extdata/examples.xls", package = "tidyxlcustom")
 #'
 #' maybe_xlsx(examples_xlsx)
 #' maybe_xlsx(examples_xlsm)

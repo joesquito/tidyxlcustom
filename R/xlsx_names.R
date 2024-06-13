@@ -6,7 +6,7 @@
 #'
 #' Most names refer to ranges of cells, but they can also be defined as
 #' formulas.  `xlsx_names()` tells you whether or not they are a range, using
-#' [tidyxl::is_range()] to work this out.
+#' [tidyxlcustom::is_range()] to work this out.
 #'
 #' Names are scoped either globally (used only once in the file), or locally to
 #' each sheet (can be reused with different definitions in different sheets).
@@ -32,11 +32,11 @@
 #' * `is_range` Whether or not the `formula` is a range of cells.  This is handy
 #'     for joining to the set of cells referred to by a name.  In this context,
 #'     commas between cell addresses are always regarded as union operators --
-#'     this differs from [tidyxl::xlex()], see that help file for details.
+#'     this differs from [tidyxlcustom::xlex()], see that help file for details.
 #'
 #' @export
 #' @examples
-#' examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+#' examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 #' xlsx_names(examples)
 xlsx_names <- function(path, check_filetype = TRUE) {
   path <- check_file(path)

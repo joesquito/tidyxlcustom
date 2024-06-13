@@ -63,7 +63,7 @@ test_that("Data validation x14 and xm extensions to the xlsx spec work", {
               error_body = c(NA_character_),
             error_symbol = c("stop")
     )
-  expect_equal(tidyxl::xlsx_validation("./x14-extensions.xlsx"), validations)
+  expect_equal(tidyxlcustom::xlsx_validation("./x14-extensions.xlsx"), validations)
 })
 
 test_that("Sheet paths like /xl/worksheets/sheet1.xml work", {
