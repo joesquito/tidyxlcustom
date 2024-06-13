@@ -5,6 +5,7 @@
 #include "xlsxsheet.h"
 #include "xlsxbook.h"
 #include "string.h"
+#include "utils.h"
 
 using namespace Rcpp;
 
@@ -106,10 +107,19 @@ unsigned long long int xlsxsheet::cacheCellcount(
   // here because it describes a rectangle of cells, many of which may be blank.
   unsigned long long int cellcount = 0;
   unsigned long long int commentcount = 0; // no. of matching comments
-  rapidxml::xml_attribute<>* r;
+  rapidxml::xml_attribute<>* ref;
+  std::string ref_val;
   std::map<std::string, std::string>::iterator comment;
+  int j = 0;
   for (rapidxml::xml_node<>* row = sheetData->first_node("row");
       row; row = row->next_sibling("row")) {
+
+    ref = row->first_attribute("r");
+    if (ref) {
+        j = std::atoi(ref->value()) - 1;
+    }
+
+    int k = 0;
     for (rapidxml::xml_node<>* c = row->first_node("c");
       c; c = c->next_sibling("c")) {
       // Check for a matching comment.
@@ -117,10 +127,23 @@ unsigned long long int xlsxsheet::cacheCellcount(
       // must be created for them.  Such additional cells must be added to the
       // actual cellcount, to initialize the returned vectors to the correct
       // length.
-      r = c->first_attribute("r");
-      if (r == NULL) // check once in whole program
-        stop("Invalid row or cell: lacks 'r' attribute");
-      comment = comments_.find(std::string(r->value(), r->value_size()));
+      ref = c->first_attribute("r");
+      if (ref) {
+
+        ref_val = std::string(ref->value(), ref->value_size());
+
+        // Get the char* array from the std::string, which is null-terminated
+        const char* tempCharArray = ref_val.c_str();
+
+        std::pair<int, int> location = parseRef(tempCharArray);
+        j = location.first;
+        k = location.second;
+        
+      } else {
+        ref_val = asA1(j + 1, k + 1);
+      }
+      
+      comment = comments_.find(ref_val);
       if(comment != comments_.end()) {
         ++commentcount;
       }
@@ -130,7 +153,9 @@ unsigned long long int xlsxsheet::cacheCellcount(
       if ((cellcount + 1) % 1000 == 0) {
         checkUserInterrupt();
       }
+      k++;
     }
+    j++;
   }
   cellcount_ = cellcount + (comments_.size() - commentcount);
   return(cellcount_);
@@ -169,31 +194,55 @@ void xlsxsheet::parseSheetData(
   rowHeights_.assign(1048576, defaultRowHeight_); // cache rowHeight while here
   rowOutlineLevels_.assign(1048576, defaultRowOutlineLevel_); // cache rowOutlineLevel while here
   unsigned long int rowNumber;
-  for (rapidxml::xml_node<>* row = sheetData->first_node();
-      row; row = row->next_sibling()) {
-    rapidxml::xml_attribute<>* r = row->first_attribute("r");
-    if (r == NULL)
-      stop("Invalid row or cell: lacks 'r' attribute"); // # nocov
-    rowNumber = strtod(r->value(), NULL);
+
+  rapidxml::xml_node<> *row = sheetData->first_node("row");
+  if (!row)
+  {
+    return;
+  }
+
+  int j = 0;
+  for (; row; row = row->next_sibling("row")) {
+
+    // if row declares its number, take this opportunity to update j
+    // when it exists, this row number is 1-indexed, but j is 0-indexed
+    rapidxml::xml_attribute<>* ref = row->first_attribute("r");
+    if (ref) {
+        j = std::atoi(ref->value()) - 1;
+    }
+
+    
+    rowNumber = j + 1;
     // Check for custom row height
     double rowHeight = defaultRowHeight_;
     rapidxml::xml_attribute<>* ht = row->first_attribute("ht");
     if (ht != NULL) {
       rowHeight = strtod(ht->value(), NULL);
-      rowHeights_[rowNumber - 1] = rowHeight;
+      rowHeights_[j] = rowHeight;
     }
     // Check for row outline level
     unsigned int rowOutlineLevel = defaultRowOutlineLevel_;
     rapidxml::xml_attribute<>* outlineLevel = row->first_attribute("outlineLevel");
     if (outlineLevel != NULL) {
       rowOutlineLevel = strtol(outlineLevel->value(), NULL, 10) + 1;
-      rowOutlineLevels_[rowNumber - 1] = rowOutlineLevel;
+      rowOutlineLevels_[j] = rowOutlineLevel;
     }
+
+    int k = 0;
 
     if (include_blank_cells_) {
       for (rapidxml::xml_node<>* c = row->first_node();
           c; c = c->next_sibling()) {
-        xlsxcell cell(c, this, book_, i);
+
+        // if cell declares its location, take this opportunity to update j and k
+        ref = c->first_attribute("r");
+        if (ref) {
+          std::pair<int, int> location = parseRef(ref->value());
+          j = location.first;
+          k = location.second;
+        }
+        
+        xlsxcell cell(c, this, book_, i, j, k);
 
         // Sheet name, row height and col width aren't really determined by
         // the cell, so they're done in this sheet instance
@@ -207,6 +256,7 @@ void xlsxsheet::parseSheetData(
         ++i;
         if ((i + 1) % 1000 == 0)
           checkUserInterrupt();
+        k++;
       }
     } else {
       for (rapidxml::xml_node<>* c = row->first_node();
@@ -215,7 +265,16 @@ void xlsxsheet::parseSheetData(
         // besides maybe formatting (linked to via attributes not child nodes).
         rapidxml::xml_node<>* first_child = c->first_node();
         if (first_child != NULL) {
-          xlsxcell cell(c, this, book_, i);
+
+          // if cell declares its location, take this opportunity to update j and k
+          ref = c->first_attribute("r");
+          if (ref) {
+            std::pair<int, int> location = parseRef(ref->value());
+            j = location.first;
+            k = location.second;
+          }
+          
+          xlsxcell cell(c, this, book_, i, j, k);
 
           // TODO: check readxl's method of importing ranges
 
@@ -231,9 +290,11 @@ void xlsxsheet::parseSheetData(
           ++i;
           if ((i + 1) % 1000 == 0)
             checkUserInterrupt();
+          k++;
         }
       }
     }
+    j++;
   }
 }
 

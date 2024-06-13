@@ -5,6 +5,7 @@
 #include "xlsxsheet.h"
 #include "string.h"
 #include "date.h"
+#include "utils.h"
 
 using namespace Rcpp;
 
@@ -12,9 +13,11 @@ xlsxcell::xlsxcell(
     rapidxml::xml_node<>* cell,
     xlsxsheet* sheet,
     xlsxbook& book,
-    unsigned long long int& i
+    unsigned long long int& i,
+    int& j,
+    int& k
     ) {
-    parseAddress(cell, sheet, book, i);
+    parseAddress(cell, sheet, book, i, j, k);
     cacheComment(sheet, book, i);
     cacheValue  (cell, sheet, book, i); // Also caches format, as inextricable
     cacheFormula(cell, sheet, book, i);
@@ -28,23 +31,23 @@ void xlsxcell::parseAddress(
     rapidxml::xml_node<>* cell,
     xlsxsheet* sheet,
     xlsxbook& book,
-    unsigned long long int& i
+    unsigned long long int& i,
+    int& j,
+    int& k
     ) {
-  rapidxml::xml_attribute<>* r = cell->first_attribute("r");
-  address_ = r->value(); // we need this std::string in a moment
+  rapidxml::xml_attribute<>* ref = cell->first_attribute("r");
+
+  if (ref) {
+    address_ = ref->value(); // we need this std::string in a moment
+  } else {
+    address_ = asA1(j + 1, k + 1).c_str();
+  }
+
   book.address_[i] = address_;
 
-  col_ = 0;
-  row_ = 0;
-  // Iterate though the A1-style address string character by character
-  for(std::string::const_iterator iter = address_.begin();
-      iter != address_.end(); ++iter) {
-    if (*iter >= '0' && *iter <= '9') { // If it's a number
-      row_ = row_ * 10 + (*iter - '0'); // Then multiply existing row by 10 and add new number
-    } else if (*iter >= 'A' && *iter <= 'Z') { // If it's a character
-      col_ = 26 * col_ + (*iter - 'A' + 1); // Then do similarly with columns
-    }
-  }
+  col_ = k + 1;
+  row_ = j + 1;
+
   book.col_[i] = col_;
   book.row_[i] = row_;
 }

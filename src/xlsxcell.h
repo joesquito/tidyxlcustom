@@ -18,14 +18,18 @@ class xlsxcell {
         rapidxml::xml_node<>* cell, // the cell node,
         xlsxsheet* sheet,           // the parent worksheet
         xlsxbook& book,             // the parent workbook
-        unsigned long long int& i   // the index of the cell
+        unsigned long long int& i,  // the index of the cell
+        int& j,  // the index of the row (minus one indexed)
+        int& k   // the index of the column (minus one indexed)
         );
 
     void parseAddress(
         rapidxml::xml_node<>* cell,
         xlsxsheet* sheet,
         xlsxbook& book,
-        unsigned long long int& i
+        unsigned long long int& i,
+        int& j,
+        int& k
         );
 
     void cacheValue(
