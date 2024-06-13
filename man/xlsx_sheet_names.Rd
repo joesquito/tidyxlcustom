@@ -22,6 +22,6 @@ vector.  They are in the same order as they appear in the spreadsheet when it
 is opened with a spreadsheet application like Excel or LibreOffice.
 }
 \examples{
-examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 xlsx_sheet_names(examples)
 }

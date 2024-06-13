@@ -31,7 +31,7 @@ any RGB colour defined by the author of the file.  Themes are often defined
 to comply with corporate standards.
 }
 \examples{
-examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 xlsx_color_theme(examples)
 xlsx_colour_theme(examples)
 }

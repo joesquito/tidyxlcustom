@@ -166,7 +166,7 @@ formats, type \code{str(x$formats$local)}.
 }
 \examples{
 \dontrun{
-examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 
 # All sheets
 str(tidy_xlsx(examples)$data)

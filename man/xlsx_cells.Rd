@@ -134,7 +134,7 @@ further processing you might need to filter out the \code{NULL}s first.
 }
 }
 \examples{
-examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 
 # All sheets
 str(xlsx_cells(examples))

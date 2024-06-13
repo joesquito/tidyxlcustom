@@ -47,7 +47,7 @@
 #'
 #' @export
 #' @examples
-#' examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+#' examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 #' str(xlsx_formats(examples))
 #'
 #' # The formats of particular cells can be retrieved like this:

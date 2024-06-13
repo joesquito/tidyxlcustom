@@ -49,7 +49,7 @@
 #'
 #' @export
 #' @examples
-#' examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+#' examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 #' xlsx_validation(examples)
 #' xlsx_validation(examples, 1)
 #' xlsx_validation(examples, "Sheet1")

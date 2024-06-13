@@ -75,7 +75,7 @@
     input, such as cells that require a selection from a drop-down list.  See
     the
     [vignette](https://nacnudus.github.io/tidyxl/articles/data-validation-rules.html)
-    `vignette("data-validation-rules", package = "tidyxl")`.
+    `vignette("data-validation-rules", package = "tidyxlcustom")`.
 * `xlsx_names()` imports defined names (aka named ranges/formulas), which can
     be used to filter for particular ranges of cells by name.  Use `is_range()`
     to filter for ones that are named ranges, and then read
@@ -87,7 +87,7 @@
     spreadsheet smells like embedded constants and deep nesting.  There is a
     [demo Shiny app](https://duncan-garmonsway.shinyapps.io/xlex/), and a
     [vignette](https://nacnudus.github.io/tidyxl/articles/smells.html)
-    `vignette("smells", package = "tidyxl")`.  A vector of Excel function names
+    `vignette("smells", package = "tidyxlcustom")`.  A vector of Excel function names
     `excel_functions` can be used to separated built-in functions from custom
     functions.  More experimental features will be implemented in the off-CRAN
     package [lexl](https://nacnudus.github.io/lexl/) before becoming part of

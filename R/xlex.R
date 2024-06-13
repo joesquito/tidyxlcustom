@@ -181,10 +181,10 @@
 #' # only when it is inside parentheses that are not function parentheses or
 #' # array curly braces.  The curly braces are tagged 'array_open' and
 #' # 'array_close'.
-#' tidyxl::xlex("A1,B2") # invalid formula, defaults to 'union' to avoid a crash
-#' tidyxl::xlex("(A1,B2)")
-#' tidyxl::xlex("MAX(A1,B2)")
-#' tidyxl::xlex("SMALL((A1,B2),1)")
+#' tidyxlcustom::xlex("A1,B2") # invalid formula, defaults to 'union' to avoid a crash
+#' tidyxlcustom::xlex("(A1,B2)")
+#' tidyxlcustom::xlex("MAX(A1,B2)")
+#' tidyxlcustom::xlex("SMALL((A1,B2),1)")
 #'
 #' # Function arguments are separated by commas ',', which are tagged
 #' # 'separator'.

@@ -15,7 +15,7 @@
 #'
 #' @export
 #' @examples
-#' examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+#' examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 #' xlsx_sheet_names(examples)
 xlsx_sheet_names <- function(path, check_filetype = TRUE) {
   utils_xlsx_sheet_files(path)$name

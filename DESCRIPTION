@@ -1,4 +1,4 @@
-Package: tidyxl
+Package: tidyxlcustom
 Title: Read Untidy Excel Files
 Version: 1.0.10
 Authors@R: c(
@@ -24,7 +24,7 @@ Imports: Rcpp
 URL: https://github.com/nacnudus/tidyxl,
     https://nacnudus.github.io/tidyxl/
 BugReports: https://github.com/nacnudus/tidyxl/issues
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Suggests: testthat,
     here,
     knitr,

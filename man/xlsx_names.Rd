@@ -44,6 +44,6 @@ each sheet (can be reused with different definitions in different sheets).
 For sheet-scoped names, \code{xlsx_names()} provides the name of the sheet.
 }
 \examples{
-examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 xlsx_names(examples)
 }

@@ -13,7 +13,7 @@
 using namespace Rcpp;
 
 Function tidyxl(const std::string& fun){
-  Environment env = Environment::namespace_env("tidyxl");
+  Environment env = Environment::namespace_env("tidyxlcustom");
   return env[fun];
 }
 
@@ -41,6 +41,6 @@ bool zip_has_file(
 std::string extdata() {
   Function system_file("system.file");
   CharacterVector out =
-    system_file("extdata", Named("package") = "tidyxl");
+    system_file("extdata", Named("package") = "tidyxlcustom");
   return as<std::string>(out);
 }

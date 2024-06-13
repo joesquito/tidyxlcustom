@@ -56,7 +56,7 @@ entered into a cell, e.g. any whole number between 0 and 9, or one of several
 values from another part of the spreadsheet.
 }
 \examples{
-examples <- system.file("extdata/examples.xlsx", package = "tidyxl")
+examples <- system.file("extdata/examples.xlsx", package = "tidyxlcustom")
 xlsx_validation(examples)
 xlsx_validation(examples, 1)
 xlsx_validation(examples, "Sheet1")
