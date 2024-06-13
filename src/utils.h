@@ -4,23 +4,27 @@
 
 using namespace Rcpp;
 
+
+// col = 1 --> first column aka column A, so 1-indexed
+inline std::string intToABC(int col) {
+  std::string ret;
+  while (col > 0) {
+    col--;
+    ret = (char)('A' + col % 26) + ret;
+    col /= 26;
+  }
+  return ret;
+}
+
+// row = 1, col = 1 --> upper left cell aka column A1, so 1-indexed
+inline std::string asA1(const int row, const int col) {
+  std::ostringstream ret;
+  ret << intToABC(col) << row;
+  return ret.str();
+}
+
 // Simple parser: does not check that order of numbers and letters is correct
-// std::pair<int, int> parseRef(std::string ref) {
-//   int col = 0, row = 0;
-
-//   for (size_t i = 0; i < ref.size(); ++i) {
-//     if (ref[i] >= '0' && ref[i] <= '9') {
-//       row = row * 10 + (ref[i] - '0');
-//     } else if (ref[i] >= 'A' && ref[i] <= 'Z') {
-//       col = 26 * col + (ref[i] - 'A' + 1);
-//     } else {
-//       stop("Invalid character '%s' in cell ref '%s'", ref[i], ref);
-//     }
-//   }
-
-//   return std::make_pair(row - 1, col - 1); // zero indexed
-// }
-std::pair<int, int> parseRef(const char* ref) {
+inline std::pair<int, int> parseRef(const char* ref) {
   int col = 0, row = 0;
 
   for (const char* cur = ref; *cur != '\0'; ++cur) {

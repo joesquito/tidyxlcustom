@@ -5,6 +5,7 @@
 #include "xlsxsheet.h"
 #include "string.h"
 #include "date.h"
+#include "utils.h"
 
 using namespace Rcpp;
 
@@ -34,8 +35,14 @@ void xlsxcell::parseAddress(
     int& j,
     int& k
     ) {
-  rapidxml::xml_attribute<>* r = cell->first_attribute("r");
-  address_ = r->value(); // we need this std::string in a moment
+  rapidxml::xml_attribute<>* ref = cell->first_attribute("r");
+
+  if (ref) {
+    address_ = ref->value(); // we need this std::string in a moment
+  } else {
+    address_ = asA1(j + 1, k + 1).c_str();
+  }
+
   book.address_[i] = address_;
 
   col_ = k + 1;

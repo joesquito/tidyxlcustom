@@ -107,10 +107,19 @@ unsigned long long int xlsxsheet::cacheCellcount(
   // here because it describes a rectangle of cells, many of which may be blank.
   unsigned long long int cellcount = 0;
   unsigned long long int commentcount = 0; // no. of matching comments
-  rapidxml::xml_attribute<>* r;
+  rapidxml::xml_attribute<>* ref;
+  std::string ref_val;
   std::map<std::string, std::string>::iterator comment;
+  int j = 0;
   for (rapidxml::xml_node<>* row = sheetData->first_node("row");
       row; row = row->next_sibling("row")) {
+
+    ref = row->first_attribute("r");
+    if (ref) {
+        j = std::atoi(ref->value()) - 1;
+    }
+
+    int k = 0;
     for (rapidxml::xml_node<>* c = row->first_node("c");
       c; c = c->next_sibling("c")) {
       // Check for a matching comment.
@@ -118,10 +127,23 @@ unsigned long long int xlsxsheet::cacheCellcount(
       // must be created for them.  Such additional cells must be added to the
       // actual cellcount, to initialize the returned vectors to the correct
       // length.
-      r = c->first_attribute("r");
-      if (r == NULL) // check once in whole program
-        stop("Invalid row or cell: lacks 'r' attribute");
-      comment = comments_.find(std::string(r->value(), r->value_size()));
+      ref = c->first_attribute("r");
+      if (ref) {
+
+        ref_val = std::string(ref->value(), ref->value_size());
+
+        // Get the char* array from the std::string, which is null-terminated
+        const char* tempCharArray = ref_val.c_str();
+
+        std::pair<int, int> location = parseRef(tempCharArray);
+        j = location.first;
+        k = location.second;
+        
+      } else {
+        ref_val = asA1(j + 1, k + 1);
+      }
+      
+      comment = comments_.find(ref_val);
       if(comment != comments_.end()) {
         ++commentcount;
       }
@@ -131,7 +153,9 @@ unsigned long long int xlsxsheet::cacheCellcount(
       if ((cellcount + 1) % 1000 == 0) {
         checkUserInterrupt();
       }
+      k++;
     }
+    j++;
   }
   cellcount_ = cellcount + (comments_.size() - commentcount);
   return(cellcount_);
@@ -194,7 +218,7 @@ void xlsxsheet::parseSheetData(
     rapidxml::xml_attribute<>* ht = row->first_attribute("ht");
     if (ht != NULL) {
       rowHeight = strtod(ht->value(), NULL);
-      rowHeights_[rowNumber - 1] = rowHeight;
+      rowHeights_[j] = rowHeight;
     }
     // Check for row outline level
     unsigned int rowOutlineLevel = defaultRowOutlineLevel_;
@@ -266,8 +290,8 @@ void xlsxsheet::parseSheetData(
           ++i;
           if ((i + 1) % 1000 == 0)
             checkUserInterrupt();
+          k++;
         }
-        k++;
       }
     }
     j++;
