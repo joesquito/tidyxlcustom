@@ -1,3 +1,4 @@
+Fork to read xlsx files with missing r attributes
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
