@@ -290,8 +290,9 @@ void xlsxsheet::parseSheetData(
           ++i;
           if ((i + 1) % 1000 == 0)
             checkUserInterrupt();
-          k++;
+          
         }
+        k++;
       }
     }
     j++;
